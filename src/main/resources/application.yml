@@ -1,0 +1,22 @@
+server:
+  port: 8383
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+spring:
+  application:
+    name: order-gateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: order_service
+          predicates:
+            - Path=/orders/**
+          uri: http://localhost:8081
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      
